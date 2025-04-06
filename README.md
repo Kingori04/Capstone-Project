@@ -20,4 +20,32 @@ A Django REST Framework backend for managing library resources, including books,
     - Filter by availability (`available_only=true`)
     - Search by title, author, or ISBN
   - Set up proper permissions (IsAuthenticatedOrReadOnly)
+#Users Management
+- Implemented Custom User model extending AbstractUser
+- Added fields:
+  - Username (unique), Email (unique)
+  - Date of Membership, Active Status
+- Created UserSerializer with proper field validation
+- Implemented UserViewSet with controlled CRUD operations
+- Configured JWT authentication endpoints:
+  - `/api/auth/token/` - Obtain tokens
+  - `/api/auth/token/refresh/` - Refresh tokens
+
+#Transactions System
+- Implemented Transaction model with:
+  - User (ForeignKey), Book (ForeignKey)
+  - Checkout Date (auto), Deadline (14 days default)
+  - Return Date (nullable), Status flags
+- Created TransactionSerializer with read-only fields
+- Implemented TransactionViewSet with custom actions:
+  - `POST /transactions/checkout/` - Check out a book
+  - `POST /transactions/<id>/return/` - Return a book
+- Added business logic:
+  - Automatic copy availability updates
+  - Duplicate checkout prevention
+  - Overdue book tracking
+
+#API Features
+- RESTful endpoints following best practices
+- Comprehensive error handling
 
